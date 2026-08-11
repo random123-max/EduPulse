@@ -1,0 +1,175 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * EduReach NextGen design system.
+ * Dark "glass cockpit" aesthetic: deep navy base, cyan + violet accents.
+ * All colours are semantic tokens — never hardcode colours in components.
+ */
+
+@theme inline {
+  --font-sans:
+    "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-cyan: var(--cyan);
+  --color-violet: var(--violet);
+  --color-mint: var(--mint);
+  --color-amber: var(--amber);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 16px);
+
+  --animate-rise: rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-pulse-soft: pulse-soft 2.4s ease-in-out infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+:root {
+  color-scheme: dark;
+
+  --background: oklch(0.17 0.03 264);
+  --foreground: oklch(0.98 0.005 250);
+  --card: oklch(0.24 0.032 265 / 45%);
+  --card-foreground: oklch(0.98 0.005 250);
+  --popover: oklch(0.21 0.032 265);
+  --popover-foreground: oklch(0.98 0.005 250);
+  --primary: oklch(0.86 0.15 195);
+  --primary-foreground: oklch(0.2 0.05 220);
+  --secondary: oklch(0.3 0.03 265 / 60%);
+  --secondary-foreground: oklch(0.98 0.005 250);
+  --muted: oklch(0.3 0.03 265 / 45%);
+  --muted-foreground: oklch(0.72 0.028 255);
+  --accent: oklch(0.55 0.24 302);
+  --accent-foreground: oklch(0.98 0.005 250);
+  --destructive: oklch(0.63 0.21 25);
+  --destructive-foreground: oklch(0.98 0.005 250);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.86 0.15 195);
+
+  --cyan: oklch(0.86 0.15 195);
+  --violet: oklch(0.55 0.24 302);
+  --mint: oklch(0.79 0.14 165);
+  --amber: oklch(0.83 0.15 82);
+
+  --radius: 1rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    color: var(--color-foreground);
+    background:
+      radial-gradient(
+        ellipse 80% 60% at 20% 0%,
+        color-mix(in oklch, var(--violet) 22%, transparent),
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 70% 60% at 90% 15%,
+        color-mix(in oklch, var(--cyan) 14%, transparent),
+        transparent 55%
+      ),
+      linear-gradient(
+        160deg,
+        oklch(0.17 0.03 264) 0%,
+        oklch(0.21 0.033 266) 60%,
+        oklch(0.16 0.028 264) 100%
+      );
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: color-mix(in oklch, var(--cyan) 30%, transparent);
+  }
+}
+
+@utility glass {
+  border: 1px solid var(--color-border);
+  background: color-mix(in oklch, var(--popover) 55%, transparent);
+  backdrop-filter: blur(20px);
+}
+
+@utility glow-cyan {
+  box-shadow: 0 0 24px -6px var(--cyan);
+}
+
+@utility input-glow {
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  background: color-mix(in oklch, white 4%, transparent);
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  color: var(--color-foreground);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input-glow::placeholder {
+  color: color-mix(in oklch, var(--muted-foreground) 70%, transparent);
+}
+
+.input-glow:focus {
+  border-color: color-mix(in oklch, var(--cyan) 60%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--cyan) 15%, transparent);
+}
+
+@utility surface-row {
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  background: color-mix(in oklch, white 3%, transparent);
+  transition: all 0.2s ease;
+}
